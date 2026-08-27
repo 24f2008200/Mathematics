@@ -10,7 +10,7 @@ This result is foundational to Lebesgue integration theory because it shows that
 $$\mathbb{Q} = \{q_1, q_2, q_3, \ldots\}$$
 
 **Definition (Lebesgue outer measure):** For any set $E \subseteq \mathbb{R}$,
-$$m^*(E) = \inf \left\{ \sum_{n=1}^{\infty} \ell(I_n) : E \subseteq \bigcup_{n=1}^{\infty} I_n, \ I_n \text{ open intervals} \right\}$$
+$$m^*(E) = \inf \{ \textstyle\sum_{n=1}^{\infty} \ell(I_n) : E \subseteq \bigcup_{n=1}^{\infty} I_n,\ I_n \text{ open intervals} \}$$
 
 We want to show $m^*(\mathbb{Q}) = 0$. Since outer measure is always $\geq 0$, it suffices to show that for **every** $\varepsilon > 0$, we can cover $\mathbb{Q}$ by intervals whose lengths sum to less than $\varepsilon$.
 
