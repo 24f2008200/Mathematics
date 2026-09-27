@@ -422,14 +422,14 @@ L1 says:
 
 Hence:
 
-|                  | L1              | L2                         |   |              |
-| ---------------- | --------------- | -------------------------- | - | ------------ |
-| Penalty          | (               | \theta                     | ) | \(\theta^2\) |
-| Force            | Constant        | Proportional to \(\theta\) |   |              |
-| Smooth?          | No, corner at 0 | Yes                        |   |              |
-| Exact zeros      | Common          | Uncommon                   |   |              |
-| Main effect      | Sparsity        | Smooth shrinkage           |   |              |
-| Physical analogy | Friction        | Spring                     |   |              |
+|                  | L1              | L2                        |
+| ---------------- | --------------- | -------------------------- | 
+| Penalty          | $(\theta )$     | $(\theta^2\)$ |
+| Force            | Constant        | Proportional to $(\theta\)$ |  
+| Smooth?          | No, corner at 0 | Yes                        | 
+| Exact zeros      | Common          | Uncommon                   |  
+| Main effect      | Sparsity        | Smooth shrinkage           |   
+| Physical analogy | Friction        | Spring                     |   
 
 So if your goal is **stable, smooth control of parameter magnitude**, L2 is a very natural choice.
 
