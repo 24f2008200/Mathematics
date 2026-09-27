@@ -276,9 +276,7 @@ $$
 
 Therefore the restoring force has approximately constant magnitude:
 
-$$
-F=-\lambda\,\operatorname{sign}(\theta).
-$$
+$$F=-\lambda\,\operatorname{sign}(\theta).$$
 
 So whether
 
