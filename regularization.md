@@ -9,9 +9,7 @@ A regularizer is **not really a capacitor**, though there is a useful analogy wi
 
 Suppose our model has parameters \(\theta\), and the training error is
 
-$$
-L(\theta).
-$$
+$$L(\theta).$$
 
 Gradient descent says
 
@@ -136,17 +134,11 @@ The regularizer says:
 
 For L2:
 
-$$
-J(\theta)=L(\theta)+\lambda\theta^2
-$$
+$$J(\theta)=L(\theta)+\lambda\theta^2$$
 
 and therefore
 
-$$
-\nabla J
-=
-\nabla L+2\lambda\theta.
-$$
+$$\nabla J=\nabla L+2\lambda\theta.$$
 
 So the learning update becomes
 
