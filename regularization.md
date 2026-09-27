@@ -15,11 +15,7 @@ $$
 
 Gradient descent says
 
-$$
-\theta_{t+1}
-=
-\theta_t-\eta\nabla L(\theta_t).
-$$
+$$\theta_{t+1}=\theta_t-\eta\nabla L(\theta_t).$$
 
 This is very much like **negative feedback**:
 
