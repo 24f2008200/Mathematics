@@ -142,15 +142,7 @@ $$\nabla J=\nabla L+2\lambda\theta.$$
 
 So the learning update becomes
 
-$$
-\boxed{
-\theta_{t+1}
-=
-\theta_t
--\eta\nabla L
--2\eta\lambda\theta_t
-}
-$$
+$$\boxed{\theta_{t+1}=\theta_t-\eta\nabla L-2\eta\lambda\theta_t}$$
 
 Look at that last term:
 
