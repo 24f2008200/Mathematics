@@ -220,3 +220,219 @@ the cost is proportional to absolute parameter magnitude, and this produces a ve
 So regularization isn't primarily about **remembering past error**, as a capacitor would.
 
 It is more like **negative feedback plus a restoring force**: *"Correct the error, but don't let the system acquire excessive gain in doing so."*
+Yes—but I would slightly correct the premise: **L2 is not universally “better” than L1.** They impose different biases. L2 is often the default because its behaviour is smooth and usually well matched to gradient-based learning.
+
+The key difference becomes very clear if we look at the **force produced by the regularizer**.
+
+### L2: a force proportional to distance
+
+For one parameter,
+
+$$
+R(\theta)=\theta^2
+$$
+
+so
+
+$$
+\frac{dR}{d\theta}=2\theta.
+$$
+
+Thus the restoring force is
+
+$$
+F=-2\lambda\theta.
+$$
+
+The farther the parameter moves from zero, the stronger the restoring force.
+
+Think of a **spring**:
+
+$$
+\boxed{\text{farther away}\quad\Rightarrow\quad\text{stronger pull back}}
+$$
+
+This is a very natural stabilising mechanism.
+
+---
+
+### L1: constant force
+
+For L1,
+
+$$
+R(\theta)=|\theta|
+$$
+
+and, away from zero,
+
+$$
+\frac{dR}{d\theta}=
+\begin{cases}
++1 & \theta>0\\
+-1 & \theta<0.
+\end{cases}
+$$
+
+Therefore the restoring force has approximately constant magnitude:
+
+$$
+F=-\lambda\,\operatorname{sign}(\theta).
+$$
+
+So whether
+
+$$
+\theta=0.1
+$$
+
+or
+
+$$
+\theta=100,
+$$
+
+the regularizer applies essentially the **same force**.
+
+That's quite different from L2.
+
+---
+
+### This gives a nice physical intuition
+
+Imagine pulling a mass away from the origin.
+
+**L2:**
+
+> "The farther you go, the harder I pull you back."
+
+**L1:**
+
+> "I pull you back with roughly the same force, regardless of how far you went."
+
+The first is like a **spring**.
+
+The second is more like **dry friction**.
+
+That difference has an important consequence.
+
+### L2 tends to shrink; L1 tends to eliminate
+
+Suppose a parameter is small:
+
+$$
+\theta=0.01.
+$$
+
+With L2, the force is
+
+$$
+2\lambda(0.01),
+$$
+
+which is small.
+
+So L2 says:
+
+> "It's already close to zero; don't disturb it much."
+
+With L1, the force is still approximately
+
+$$
+\lambda.
+$$
+
+So L1 keeps pushing that small parameter toward zero until it can actually **hit zero**.
+
+That is why L1 produces **sparsity**.
+
+$$
+\boxed{\text{L1: many parameters become exactly zero}}
+$$
+
+whereas
+
+$$
+\boxed{\text{L2: parameters usually become small, but rarely exactly zero}}
+$$
+
+---
+
+### Why L2 often feels more stable in ML
+
+There is another important reason.
+
+L2 is **smooth**:
+
+$$
+\theta^2
+$$
+
+has a derivative everywhere.
+
+L1 has a sharp corner at zero:
+
+$$
+|\theta|.
+$$
+
+Graphically:
+
+$$
+\text{L2:}\quad \cup
+$$
+
+smooth bottom.
+
+$$
+\text{L1:}\quad \vee
+$$
+
+sharp corner.
+
+Gradient-based optimisation generally likes smooth landscapes. The L2 penalty therefore gives a nice, continuously varying restoring force.
+
+This also connects beautifully to your **feedback/amplifier intuition**:
+
+$$\boxed{\text{L2 feedback strength}\propto |\theta|}$$
+
+So as the "gain" represented by the parameter gets larger, the stabilising feedback gets stronger.
+
+L1 instead gives approximately
+
+$$\boxed{\text{L1 feedback strength}\approx\text{constant}}$$
+
+until the parameter reaches zero.
+
+---
+
+### But there is a deeper point
+
+L1 isn't an inferior version of L2.
+
+It answers a **different question**.
+
+L2 says:
+
+> **"Use all the parameters if useful, but discourage them from becoming large."**
+
+L1 says:
+
+> **"If a parameter isn't sufficiently useful, get rid of it."**
+
+Hence:
+
+|                  | L1              | L2                         |   |              |
+| ---------------- | --------------- | -------------------------- | - | ------------ |
+| Penalty          | (               | \theta                     | ) | \(\theta^2\) |
+| Force            | Constant        | Proportional to \(\theta\) |   |              |
+| Smooth?          | No, corner at 0 | Yes                        |   |              |
+| Exact zeros      | Common          | Uncommon                   |   |              |
+| Main effect      | Sparsity        | Smooth shrinkage           |   |              |
+| Physical analogy | Friction        | Spring                     |   |              |
+
+So if your goal is **stable, smooth control of parameter magnitude**, L2 is a very natural choice.
+
+If your goal is **feature selection / sparsity**, the very property that makes L1 less smooth becomes its advantage.
+
+And this ties back to your earlier capacitor question: **neither L1 nor L2 is really an integrator.** They are more like **instantaneous feedback forces based on the current parameter value**. The *optimizer dynamics* across iterations provide the temporal evolution; the regularizer itself doesn't accumulate history.
